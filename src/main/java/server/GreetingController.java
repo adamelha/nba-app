@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 @RestController
 public class GreetingController {
@@ -13,10 +14,12 @@ public class GreetingController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 	
+	// API call - returns JSON
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
 		logger.info("Got a greeting request from \n".format(name));
         return new Greeting(counter.incrementAndGet(),
                             String.format(template, name));
     }
+	
 }
